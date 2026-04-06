@@ -1,16 +1,42 @@
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda de Clientes</title>
 </head>
+
 <body>
     <div class="container">
         <h1>Agenda de Clientes</h1>
         <input type="text" id="search" placeholder="Buscar cliente...">
+
+        <form id="contact-form">
+            <input type="hidden" id="edit-index" />
+            <input type="text" id="name" placeholder="Nome" required>
+            <input type="text" id="phone" placeholder="Telefone" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <button type="submit" id="save-btn">Adicionar Cliente</button>
+        </form>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="contact-list"></tbody>
+            </table>
+        </div>
+        <button id="export-btn" class="export-data-button">Exportar para Exel</button>
     </div>
 
     <script src="script.js"></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </body>
+
 </html>
