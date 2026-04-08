@@ -83,3 +83,41 @@ th, td {
 th {
     background-color: #007bff;
 }
+
+.edit-btn {
+    background-color: #ffc103;
+    color: #000;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: #000;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+#export-btn {
+    margin-top: 30px;
+}
+
+@media (max-width: 680px) {
+    table {
+        min-width: 600px;
+    }
+}
