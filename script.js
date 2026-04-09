@@ -88,16 +88,16 @@ async function validatePhone(phone) {
 form.addEventListener('submit', async function (e) { // Escutar o evento de submit do formulário
     e.preventDefault(); //Prevenir que o site atualize ao enviar o formulário
 
-    const name = document.getElementById('name').value(); // Pegando o valor do campo de nome
-    const email = document.getElementById('email').value(); // Pegando o valor do campo de email
-    const phone = phone.value(); // Pegando o valor do campo de telefone
+    const name = document.getElementById('name').value; // Pegando o valor do campo de nome
+    const email = document.getElementById('email').value; // Pegando o valor do campo de email
+    const phone = document.getElementById('phone').value; // Pegando o valor do campo de telefone
     const index = editIndex.value; // Pegando o valor do campo de índice de edição
 
     const isValidPhone = await validatePhone(phone); // Validando o número de telefone usando a função validatePhone
 
     if(!isValidPhone) return; // Se o número de telefone for inválido, interromper a execução da função
 
-    if (editIndex === '') { // Verificando se o campo de índice de edição está vazio, o que indica que estamos adicionando um novo contato
+    if (index === '') { // Verificando se o campo de índice de edição está vazio, o que indica que estamos adicionando um novo contato
         contacts.push({ name, phone, email }); // Adicionando um novo contato ao array de contatos
     } else { // Se o campo de índice de edição não estiver vazio, isso indica que estamos editando um contato existente
         contacts[index] = { name, phone, email }; // Atualizando o contato existente no array de contatos com os novos valores
