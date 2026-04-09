@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //Adicionando um evento de input para o campo de telefone
         phone.addEventListener("input", function(e){
             const target = e.target; // Pegando o valor do campo de telefone
-            const value = target.value.replace(/\D/g, ''); // Removendo todos os caracteres que não são dígitos
+            let value = target.value.replace(/\D/g, ''); // Removendo todos os caracteres que não são dígitos
 
             if(value.length > 0) {
                 if(value.length < 2) {
@@ -76,10 +76,35 @@ async function validatePhone(phone) {
             return false; // Retornando falso para indicar que o número de telefone é inválido
         }
         return true; // Retornando verdadeiro para indicar que o número de telefone é válido
-        
+
     } catch (error) {
         console.error('Erro ao validar o número de telefone:', error); // Exibindo uma mensagem de erro para o usuário no console
         alert('Ocorreu um erro ao validar o número de telefone. Por favor, tente novamente mais tarde.'); // Exibindo uma mensagem de erro para o usuário na tela
         return false;
     }
 }
+
+//Adicionar ou atualizar contato
+form.addEventListener('submit', async function (e) { // Escutar o evento de submit do formulário
+    e.preventDefault(); //Prevenir que o site atualize ao enviar o formulário
+
+    const name = document.getElementById('name').value(); // Pegando o valor do campo de nome
+    const email = document.getElementById('email').value(); // Pegando o valor do campo de email
+    const phone = phone.value(); // Pegando o valor do campo de telefone
+    const index = editIndex.value; // Pegando o valor do campo de índice de edição
+
+    const isValidPhone = await validatePhone(phone); // Validando o número de telefone usando a função validatePhone
+
+    if(!isValidPhone) return; // Se o número de telefone for inválido, interromper a execução da função
+
+    if (editIndex === '') { // Verificando se o campo de índice de edição está vazio, o que indica que estamos adicionando um novo contato
+        contacts.push({ name, phone, email }); // Adicionando um novo contato ao array de contatos
+    } else { // Se o campo de índice de edição não estiver vazio, isso indica que estamos editando um contato existente
+        contacts[index] = { name, phone, email }; // Atualizando o contato existente no array de contatos com os novos valores
+        editIndex.value = ''; // Limpando o campo de índice de edição para indicar que não estamos mais editando um contato
+        saveButton.textContent = 'Adicionar Cliente'; // Alterando o texto do botão de salvar para "Salvar"
+    }
+    saveContacts(); // Salvando os contatos atualizados no Local Storage
+    renderContacts(); // Renderizando a lista de contatos atualizada na tela
+    form.reset(); // Limpando os campos do formulário após adicionar ou atualizar um contato
+})
