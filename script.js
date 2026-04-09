@@ -15,3 +15,27 @@ let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
 function saveContacts() {
     localStorage.setItem('contacts', JSON.stringify(contacts));
 }
+
+//Renderizar a lista de contatos
+function renderContacts(filter = '') {
+    contactList.innerHTML = '';
+
+    contacts.forEach((contact, index) => {
+        if (contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+            contact.phone.includes(filter) ||
+            contact.email.toLowerCase().includes(filter.toLowerCase())
+        ) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${contact.name}</td>
+                <td>${contact.phone}</td>
+                <td>${contact.email}</td>
+                <td>
+                    <button class="actions-buttons edit-btn" data-index="${index}">Editar</button>
+                    <button class="actions-buttons delete-btn" data-index="${index}">Excluir</button>
+                </td>
+            `;
+            contactList.appendChild(row);
+        }
+    });
+}
