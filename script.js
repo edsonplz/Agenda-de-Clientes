@@ -61,3 +61,25 @@ document.addEventListener("DOMContentLoaded", function() {
         })
     }
 })
+
+// validar Numero de telefone
+async function validatePhone(phone) {
+    const apiKey = 'fc04abe721bc8e96db34d3a9f2e2f1ae'; // Pegando chave da API do numverify
+    const formattedPhone = phone.replace(/\D/g, ''); // Removendo caracteres não numéricos do telefone
+
+    try {
+        const response = await fetch(`http://apilayer.net/api/validate?access_key=${apiKey}&number=${formattedPhone}`); // Fazendo a requisição para a API do numverify
+        const data = await response.json(); // Convertendo a resposta para JSON
+
+        if (!data.valid) {
+            alert('Número de telefone inválido. Por favor, insira um número válido.'); // Exibindo uma mensagem de erro para o usuário
+            return false; // Retornando falso para indicar que o número de telefone é inválido
+        }
+        return true; // Retornando verdadeiro para indicar que o número de telefone é válido
+        
+    } catch (error) {
+        console.error('Erro ao validar o número de telefone:', error); // Exibindo uma mensagem de erro para o usuário no console
+        alert('Ocorreu um erro ao validar o número de telefone. Por favor, tente novamente mais tarde.'); // Exibindo uma mensagem de erro para o usuário na tela
+        return false;
+    }
+}
