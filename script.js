@@ -108,3 +108,13 @@ form.addEventListener('submit', async function (e) { // Escutar o evento de subm
     renderContacts(); // Renderizando a lista de contatos atualizada na tela
     form.reset(); // Limpando os campos do formulário após adicionar ou atualizar um contato
 })
+
+// Função para editar um contato
+function editContact(index) {
+    const contact = contacts[index]; // Pegando o contato a ser editado com base no índice fornecido
+    document.getElementById('name').value = contact.name; // Preenchendo o campo de nome com o valor do contato a ser editado
+    document.getElementById('email').value = contact.email; // Preenchendo o campo de email com o valor do contato a ser editado
+    document.getElementById('phone').value = contact.phone; // Preenchendo o campo de telefone com o valor do contato a ser editado
+    editIndex.value = index; // Definindo o valor do campo de índice de edição para o índice do contato a ser editado
+    saveButton.textContent = 'Salvar edição'; // Alterando o texto do botão de salvar para "Salvar"
+}
