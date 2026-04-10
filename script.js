@@ -118,3 +118,11 @@ function editContact(index) {
     editIndex.value = index; // Definindo o valor do campo de índice de edição para o índice do contato a ser editado
     saveButton.textContent = 'Salvar edição'; // Alterando o texto do botão de salvar para "Salvar"
 }
+
+// Deletar um contato
+function deleteContact(index) {
+    contacts.splice(index, 1); // Removendo o contato do array de contatos com base no índice fornecido
+    saveContacts(); // Salvando os contatos atualizados no Local Storage
+    search.value = ''; // Limpando o campo de busca para mostrar todos os contatos após a exclusão
+    renderContacts(); // Renderizando a lista de contatos atualizada na tela
+}
