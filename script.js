@@ -67,7 +67,7 @@ async function validatePhone(phone) {
     const formattedPhone = phone.replace(/\D/g, ''); // Removendo caracteres não numéricos do telefone
 
     try {
-        const response = await fetch(`http://apilayer.net/api/validate?access_key=${apiKey}&number=55${formattedPhone}`); // Fazendo a requisição para a API do numverify
+        const response = await fetch(`https://apilayer.net/api/validate?access_key=${apiKey}&number=55${formattedPhone}`); // Fazendo a requisição para a API do numverify
         const data = await response.json(); // Convertendo a resposta para JSON
 
         if (!data.valid) {
