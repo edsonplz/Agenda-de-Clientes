@@ -136,3 +136,10 @@ function exportToExel() {
 }
 
 exportButton.addEventListener('click', exportToExel); // Escutando o evento de clique no botão de exportar para Excel e chamando a função exportToExel quando o botão for clicado
+
+// Filtrar contatos com base na busca
+search.addEventListener('input', function() { // Escutando o evento de input no campo de busca para filtrar os contatos em tempo real
+    renderContacts(search.value); // Chamando a função renderContacts com o valor do campo de busca para filtrar os contatos exibidos na tela
+})
+
+renderContacts(); // Renderizando a lista de contatos na tela quando a página é carregada pela primeira vez
