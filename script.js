@@ -30,8 +30,8 @@ function renderContacts(filter = '') { // Função para renderizar os contatos n
                 <td>${contact.phone}</td>
                 <td>${contact.email}</td>
                 <td>
-                    <button class="actions-buttons edit-btn" data-index="${index}">Editar</button>
-                    <button class="actions-buttons delete-btn" data-index="${index}">Excluir</button>
+                    <button class="actions-buttons edit-btn" onclick="editContact(${index})">Editar</button>
+                    <button class="actions-buttons delete-btn" onclick="deleteContact(${index})">Excluir</button>
                 </td>
             `; // Definindo o conteúdo HTML da linha com os dados do contato e os botões de editar e excluir, incluindo um atributo data-index para identificar o índice do contato na lista
             contactList.appendChild(row); // Adicionando a linha do contato à tabela de contatos na tela
@@ -67,7 +67,7 @@ async function validatePhone(phone) {
     const formattedPhone = phone.replace(/\D/g, ''); // Removendo caracteres não numéricos do telefone
 
     try {
-        const response = await fetch(`http://apilayer.net/api/validate?access_key=${apiKey}&number=${formattedPhone}`); // Fazendo a requisição para a API do numverify
+        const response = await fetch(`http://apilayer.net/api/validate?access_key=${apiKey}&number=55${formattedPhone}`); // Fazendo a requisição para a API do numverify
         const data = await response.json(); // Convertendo a resposta para JSON
 
         if (!data.valid) {
