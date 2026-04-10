@@ -1,5 +1,4 @@
 // Pegando os elementos do DOM
-
 const form = document.getElementById('contact-form');
 const contactList = document.getElementById('contact-list');
 const saveButton = document.getElementById('save-btn');
@@ -13,19 +12,19 @@ let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
 
 // Salvar contatos no Local Storage
 function saveContacts() {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    localStorage.setItem('contacts', JSON.stringify(contacts)); // Convertendo o array de contatos para uma string JSON e salvando no Local Storage
 }
 
-//Renderizar a lista de contatos
-function renderContacts(filter = '') {
-    contactList.innerHTML = '';
+// Renderizar contatos na tela
+function renderContacts(filter = '') { // Função para renderizar os contatos na tela, com um parâmetro opcional de filtro para busca
+    contactList.innerHTML = ''; // Limpando a lista de contatos antes de renderizar os contatos filtrados
 
-    contacts.forEach((contact, index) => {
-        if (contact.name.toLowerCase().includes(filter.toLowerCase()) ||
-            contact.phone.includes(filter) ||
-            contact.email.toLowerCase().includes(filter.toLowerCase())
+    contacts.forEach((contact, index) => { // Iterando sobre o array de contatos para renderizar cada contato na tela
+        if (contact.name.toLowerCase().includes(filter.toLowerCase()) || // Verificando se o nome do contato inclui o filtro de busca, ignorando maiúsculas e minúsculas
+            contact.phone.includes(filter) || // Verificando se o telefone do contato inclui o filtro de busca
+            contact.email.toLowerCase().includes(filter.toLowerCase()) // Verificando se o email do contato inclui o filtro de busca, ignorando maiúsculas e minúsculas
         ) {
-            const row = document.createElement('tr');
+            const row = document.createElement('tr'); // Criando uma nova linha na tabela para o contato
             row.innerHTML = `
                 <td>${contact.name}</td>
                 <td>${contact.phone}</td>
@@ -34,8 +33,8 @@ function renderContacts(filter = '') {
                     <button class="actions-buttons edit-btn" data-index="${index}">Editar</button>
                     <button class="actions-buttons delete-btn" data-index="${index}">Excluir</button>
                 </td>
-            `;
-            contactList.appendChild(row);
+            `; // Definindo o conteúdo HTML da linha com os dados do contato e os botões de editar e excluir, incluindo um atributo data-index para identificar o índice do contato na lista
+            contactList.appendChild(row); // Adicionando a linha do contato à tabela de contatos na tela
         }
     });
 }
@@ -126,3 +125,14 @@ function deleteContact(index) {
     search.value = ''; // Limpando o campo de busca para mostrar todos os contatos após a exclusão
     renderContacts(); // Renderizando a lista de contatos atualizada na tela
 }
+
+// Exportar contatos para exel
+function exportToExel() {
+    const worksheet = XLSX.utils.json_to_sheet(contacts); // Convertendo o array de contatos para uma planilha do Excel usando a biblioteca XLSX
+    const workbook = XLSX.utils.book_new(); // Criando um novo livro de trabalho do Excel
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Contatos'); // Adicionando a planilha de contatos ao livro de trabalho
+    XLSX.utils.sheet_add_aoa(worksheet, [['Nome', 'Telefone', 'Email']], { origin: 'A1' }); // Adicionando um cabeçalho à planilha de contatos
+    XLSX.writeFile(workbook, 'contatos.xlsx'); // Salvando o livro de trabalho como um arquivo Excel chamado "contatos.xlsx"
+}
+
+exportButton.addEventListener('click', exportToExel); // Escutando o evento de clique no botão de exportar para Excel e chamando a função exportToExel quando o botão for clicado
